@@ -1,25 +1,32 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import os.path
-import json
-import scipy
+# import matplotlib.pyplot as plt
+# import os.path
+# import json
+# import scipy
 import argparse
 import math
-import pylab
-from sklearn.preprocessing import normalize
-from mpl_toolkits.mplot3d import Axes3D
+# import pylab
+# from sklearn.preprocessing import normalize
+# from mpl_toolkits.mplot3d import Axes3D
+import os
+os.environ['GLOG_minloglevel'] = '2'
 
 # Make sure that caffe is on the python path:
-caffe_root = '.../caffe-posenet/'  # Change to your directory to caffe-posenet
+caffe_root = '/home/mo/github/caffe-posenet/'  # Change to your directory to caffe-posenet
 import sys
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 
+data_name = 'vgg-pose'
+model_path = '/home/mo/github/caffe-posenet/posenet/models/PoseNet/'
+net_model = model_path + 'train_%s.prototxt' % data_name
+net_weits = model_path + 'weights_%s.caffemodel' % data_name
+
 # Import arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('--model', type=str, required=True)
-parser.add_argument('--weights', type=str, required=True)
+# parser.add_argument('--model', type=str, required=True)
+# parser.add_argument('--weights', type=str, required=True)
 parser.add_argument('--iter', type=int, required=True)
 args = parser.parse_args()
 
@@ -27,9 +34,11 @@ results = np.zeros((args.iter,2))
 
 caffe.set_mode_gpu()
 
-net = caffe.Net(args.model,
-                args.weights,
-                caffe.TEST)
+# net = caffe.Net(args.model,
+#                 args.weights,
+#                 caffe.TEST)
+
+net = caffe.Net(net_model, net_weits, caffe.TEST)
 
 for i in range(0, args.iter):
 
@@ -37,8 +46,8 @@ for i in range(0, args.iter):
 
 	pose_q= net.blobs['label_wpqr'].data
 	pose_x= net.blobs['label_xyz'].data
-	predicted_q = net.blobs['cls3_fc_wpqr'].data 
-	predicted_x = net.blobs['cls3_fc_xyz'].data 
+	predicted_q = net.blobs['fc_pose_wpqr'].data 
+	predicted_x = net.blobs['fc_pose_xyz'].data 
 
 	pose_q = np.squeeze(pose_q)
 	pose_x = np.squeeze(pose_x)
@@ -59,7 +68,7 @@ for i in range(0, args.iter):
 median_result = np.median(results,axis=0)
 print 'Median error ', median_result[0], 'm  and ', median_result[1], 'degrees.'
 
-np.savetxt('results.txt', results, delimiter=' ')
+np.savetxt('results.txt', results, delimiter=' ',fmt='%08.5f')
 
 print 'Success!'
 
