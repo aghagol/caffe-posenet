@@ -1,0 +1,13 @@
+net: "/home/mo/github/caffe-posenet/posenet/models/pioneer/train_kingscollege224_fair_nodrop.prototxt"
+test_initialization: false
+base_lr: 1e-4
+lr_policy: "fixed"
+gamma: 1.0
+display: 20
+max_iter: 100000
+solver_type: ADAGRAD
+weight_decay: 0.0
+snapshot: 5000
+snapshot_prefix: "/home/mo/github/caffe-posenet/posenet/models/pioneer/training_dump"
+solver_mode: GPU
+

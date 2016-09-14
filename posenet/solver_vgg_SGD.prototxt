@@ -1,0 +1,17 @@
+net: "/home/mo/github/caffe-posenet/posenet/models/PoseNet/train_vgg.prototxt"
+test_initialization: false
+test_iter: 10
+test_interval: 100
+base_lr: 1e-6
+lr_policy: "step"
+gamma: 0.9
+momentum: 0.9
+stepsize: 80
+display: 20
+max_iter: 10000
+solver_type: SGD
+weight_decay: 0.5
+snapshot: 1000
+snapshot_prefix: "/home/mo/github/caffe-posenet/posenet/models/dump/training"
+solver_mode: GPU
+

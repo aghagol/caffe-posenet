@@ -1,0 +1,15 @@
+net: "/home/mo/github/caffe-posenet/posenet/models/jaguar_soonhac/train_protos/train_kingscollege_fair_224.prototxt"
+test_initialization: false
+test_iter: 100
+test_interval: 500
+base_lr: 1e-3
+lr_policy: "fixed"
+gamma: 1.0
+display: 20
+max_iter: 100000
+solver_type: ADAGRAD
+weight_decay: 0.5
+snapshot: 5000
+snapshot_prefix: "/home/mo/github/caffe-posenet/posenet/models/jaguar_soonhac/training_dump"
+solver_mode: GPU
+

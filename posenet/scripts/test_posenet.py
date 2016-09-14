@@ -3,6 +3,7 @@ import numpy as np
 # import os.path
 # import json
 # import scipy
+import time
 import argparse
 import math
 # import pylab
@@ -18,9 +19,10 @@ sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 
-data_name = 'vgg-pose'
-model_path = '/home/mo/github/caffe-posenet/posenet/models/PoseNet/'
-net_model = model_path + 'train_%s.prototxt' % data_name
+# data_name = 'vggpose_fc6'
+data_name = 'kingscollege'
+model_path = '/home/mo/github/caffe-posenet/posenet/models/pioneer/'
+net_model = model_path + 'train224_%s.prototxt' % data_name
 net_weits = model_path + 'weights_%s.caffemodel' % data_name
 
 # Import arguments
@@ -33,6 +35,7 @@ args = parser.parse_args()
 results = np.zeros((args.iter,2))
 
 caffe.set_mode_gpu()
+# caffe.set_mode_cpu()
 
 # net = caffe.Net(args.model,
 #                 args.weights,
@@ -40,14 +43,20 @@ caffe.set_mode_gpu()
 
 net = caffe.Net(net_model, net_weits, caffe.TEST)
 
+t1 = time.time()
+
 for i in range(0, args.iter):
 
 	net.forward()
 
+# print 'time per image = %f' %((time.time()-t1)/args.iter)
+
 	pose_q= net.blobs['label_wpqr'].data
 	pose_x= net.blobs['label_xyz'].data
-	predicted_q = net.blobs['fc_pose_wpqr'].data 
-	predicted_x = net.blobs['fc_pose_xyz'].data 
+	predicted_q = net.blobs['cls3_fc_wpqr'].data 
+	predicted_x = net.blobs['cls3_fc_xyz'].data 
+	# predicted_q = net.blobs['fc_pose_wpqr'].data 
+	# predicted_x = net.blobs['fc_pose_xyz'].data 
 
 	pose_q = np.squeeze(pose_q)
 	pose_x = np.squeeze(pose_x)

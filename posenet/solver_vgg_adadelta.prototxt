@@ -1,0 +1,17 @@
+net: "/home/mo/github/caffe-posenet/posenet/models/PoseNet/train_vggpose.prototxt"
+test_initialization: false
+test_iter: 100
+test_interval: 1000000000
+base_lr: 1.0
+lr_policy: "fixed"
+momentum: 0.95
+gamma: 1.0
+display: 20
+max_iter: 30000
+solver_type: ADADELTA
+weight_decay: 0.0005
+snapshot: 2500
+snapshot_prefix: "/home/mo/github/caffe-posenet/posenet/models/dump/training"
+solver_mode: GPU
+delta: 1e-6
+
