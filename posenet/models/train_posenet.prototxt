@@ -5,7 +5,7 @@ layers {
   name: "data"
   type: DATA
   data_param {
-    source: ".../dataset_train_lmdb/"
+    source: "/home/mo/Desktop/posgit2/train_lmdb/"
     batch_size: 64
     backend: LMDB
   }
@@ -15,7 +15,7 @@ layers {
   transform_param {
     mirror: false
     crop_size: 224
-    mean_file: "../imagemean.binaryproto"
+    mean_file: "/home/mo/Desktop/posgit2/imagemean.binaryproto"
   }
 }
 layers {
@@ -24,7 +24,7 @@ layers {
   name: "data"
   type: DATA
   data_param {
-    source: ".../dataset_test_lmdb/"
+    source: "/home/mo/Desktop/posgit2/test_lmdb/"
     batch_size: 1
     backend: LMDB
   }
@@ -34,7 +34,7 @@ layers {
   transform_param {
     mirror: false
     crop_size: 224
-    mean_file: "../imagemean.binaryproto"
+    mean_file: "/home/mo/Desktop/posgit2/imagemean.binaryproto"
   }
 }
 layers {

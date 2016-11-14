@@ -1,4 +1,4 @@
-net: ".../caffe-posenet/posenet/models/train_posenet.prototxt"
+net: "/home/mo/github/pos/posenet/models/train_posenet.prototxt"
 test_initialization: false
 test_iter: 1000000000
 test_interval: 1000000000
@@ -11,6 +11,6 @@ max_iter: 30000
 solver_type: ADAGRAD
 weight_decay: 0.5
 snapshot: 2500
-snapshot_prefix: ".../caffe-posenet/posenet/models/training/posenet"
+snapshot_prefix: "/home/mo/github/pos/posenet/models/training_dump"
 solver_mode: GPU
 
